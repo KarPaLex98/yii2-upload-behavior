@@ -1,7 +1,7 @@
 {
-  "name": "yii-dream-team/yii2-upload-behavior",
-  "type": "yii2-extension",
+  "name": "karpalex98/yii2-upload-behavior",
   "description": "Yii2 file/image upload behavior for ActiveRecord",
+  "type": "yii2-extension",
   "keywords": [
     "file",
     "image",
@@ -11,8 +11,11 @@
     "thumb"
   ],
   "license": "MIT",
-  "homepage": "http://yiidreamteam.com/yii2/upload-behavior",
   "authors": [
+    {
+      "name": "Павел Караваев",
+      "email": "pav.kar1998@gmail.com"
+    },
     {
       "name": "Alexey Samoylov",
       "email": "alexey.samoylov@gmail.com",
@@ -20,21 +23,15 @@
       "role": "Developer"
     }
   ],
-  "minimum-stability": "dev",
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "*",
     "masterexploder/phpthumb": "*"
   },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/yii-dream-team/PHPThumb"
-    }
-  ],
   "autoload": {
     "psr-4": {
-      "yiidreamteam\\upload\\": "./src"
+      "karpalex98\\upload\\": "./src"
     }
   }
 }
+
