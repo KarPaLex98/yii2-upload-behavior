@@ -4,7 +4,7 @@
  * @author Alexey Samoylov <alexey.samoylov@gmail.com>
  * @link http://yiidreamteam.com/yii2/upload-behavior
  */
-namespace yiidreamteam\upload;
+namespace karpalex98\upload;
 
 use Yii;
 use yii\base\InvalidCallException;
@@ -15,7 +15,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
-use yiidreamteam\upload\exceptions\FileUploadException;
+use karpalex98\upload\exceptions\FileUploadException;
 
 /**
  * Class FileUploadBehavior
