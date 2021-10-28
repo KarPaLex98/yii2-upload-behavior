@@ -176,6 +176,10 @@ class FileUploadBehavior extends \yii\base\Behavior
                     return static::makeIdPath($this->owner->getPrimaryKey());
                 case 'parent_id':
                     return $this->owner->{$this->parentRelationAttribute};
+                case 'md5_hash_2_symbols':
+                    $pk = lcfirst(implode('_', $this->owner->getPrimaryKey(true)));
+                    $md5_hash = md5($fileName . $extension . $pk);
+                    return substr($md5_hash, 0 , 2);
             }
             if (preg_match('|^attribute_(\w+)$|', $name, $am)) {
                 $attribute = $am[1];
