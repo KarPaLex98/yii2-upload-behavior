@@ -15,6 +15,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
+use yii\helpers\Inflector;
 use karpalex98\upload\exceptions\FileUploadException;
 
 /**
@@ -34,6 +35,9 @@ class FileUploadBehavior extends \yii\base\Behavior
 
     /** @var string Where to store images. */
     public $fileUrl = '/uploads/[[pk]].[[extension]]';
+
+    /** @var boolean Slagification of file name */
+    public $fileNameIsSlug = false;
 
     /**
      * @var string Attribute used to link owner model with it's parent
@@ -95,9 +99,12 @@ class FileUploadBehavior extends \yii\base\Behavior
                 $behavior = static::getInstance($oldModel, $this->attribute);
                 $behavior->cleanFiles();
             }
-
+            $baseName = $this->owner->{$this->attribute} = $this->file->baseName;
+            if ($this->fileNameIsSlug) {
+                $baseName = Inflector::slug($baseName);
+            }
             $this->owner->{$this->attribute} = implode('.',
-                array_filter([$this->file->baseName, $this->file->extension])
+                array_filter([$baseName, $this->file->extension])
             );
         } else {
             if (true !== $this->owner->isNewRecord && empty($this->owner->{$this->attribute})) {
@@ -177,7 +184,8 @@ class FileUploadBehavior extends \yii\base\Behavior
                 case 'parent_id':
                     return $this->owner->{$this->parentRelationAttribute};
                 case 'md5_hash_2_symbols':
-                    $pk = lcfirst(implode('_', $this->owner->getPrimaryKey(true)));
+                    $pk = $this->owner->getPrimaryKey();
+                    $pk = is_array($pk) ? implode('', $pk) : $pk;
                     $md5_hash = md5($fileName . $extension . $pk);
                     return substr($md5_hash, 0 , 2);
             }
